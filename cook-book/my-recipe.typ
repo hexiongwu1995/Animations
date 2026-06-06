@@ -7,7 +7,7 @@
   title: "Rustic Roasted Tomato Basil Soup",
   subtitle: "A warming comfort food perfect for autumn evenings.",
   image: image("soup.jpg", width: 100%, height: 100%, fit: "cover"),
-  serves: 4,
+  serves: 8, 
   base: 2,
 )
 
@@ -34,3 +34,5 @@
   Use an immersion blender to blitz until smooth. Stir in #ing.cream(50)
   and serve immediately.
 ]
+
+

@@ -20,7 +20,7 @@
 // --- COMPONENTS ---
 
 // A. INGREDIENT
-// Akzeptiert Nährwerte für die Auto-Berechnung
+// Accepts nutritional values for automatic calculation.
 #let ing(name, amount, unit: "", kcal: 0, prot: 0, carbs: 0, fat: 0) = (
   loom.motif.managed
 )(
@@ -29,7 +29,7 @@
     let factor = ctx.at("scale-factor", default: 1.0)
     let final-amount = amount * factor
 
-    // Nährwerte skalieren (für die Summe im Root)
+    // Scale nutritional values (for the root total)
     let final-nut = (
       kcal: kcal * factor,
       prot: prot * factor,
