@@ -10,6 +10,8 @@
   serves: 8, 
   base: 2,
 )
+// 在 Typst 中，#show: recipe.with(...) 的意思是将后续所有内容作为 body 参数传入 recipe 函数（除了命名参数以外的最后一个位置参数）。
+
 
 #step(1)[
   Preheat your oven to 200°C. Cut #ing.tomato(750) in half
