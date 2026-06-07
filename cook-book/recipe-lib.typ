@@ -52,8 +52,8 @@
   none,
 )
 
-// B. NUTRITION (Manuell) [WIEDER EINGEFÜGT]
-// Erlaubt das manuelle Überschreiben der Nährwerte pro Portion.
+// B. NUTRITION (Manual) [REINSERTED]
+// Allows manually overriding the nutritional values per serving.
 #let nutrition(kcal, prot, carbs, fat) = (loom.motif.data)(
   "nutrition",
   measure: ctx => (
@@ -75,14 +75,14 @@
   draw: (ctx, public, view, body) => {
     grid(
       columns: (30%, 1fr),
-      column-gutter: 15pt,
+      column-gutter: 1em,
       align(right)[
         #set text(size: 9pt, fill: theme.light)
         #if view.local-ings.len() > 0 [
           *Use in this step:* \
           #for i in view.local-ings [
             #format-amount(i.amount)#i.unit #i.name \
-          ]
+          ] 
         ]
       ],
       [
@@ -107,10 +107,10 @@
     //let ingrediants = steps.map(s => s.signal).flatten()
     let ingrediants = query.collect(children, kind: "ing").map(c => c.signal)
 
-    // 1. Check auf MANUELLE Nutrition
+    // 1. Check for MANUAL Nutrition
     let manual-nut = query.find(children, "nutrition")
 
-    // 2. Shopping List & Auto-Nutrition berechnen
+    // 2. Calculate Shopping List & Auto-Nutrition
     let shopping-list = (:)
     let total-nut = (kcal: 0, prot: 0, carbs: 0, fat: 0)
 
@@ -124,7 +124,7 @@
       current.amount += item.amount
       shopping-list.insert(key, current)
 
-      // Nur summieren, wenn wir KEINE manuellen Werte haben (Performance sparen)
+      // Only sum when we have NO manual values (save performance)
       if manual-nut == none {
         total-nut.kcal += item.at("kcal", default: 0)
         total-nut.prot += item.at("prot", default: 0)
@@ -133,15 +133,15 @@
       }
     }
 
-    // 3. Entscheidung: Manuell oder Automatisch?
-    // Wir bereiten Strings für die View vor, um "4g" und 4.0 zu vereinheitlichen.
+    // 3. Decision: Manual or Automatic?
+    // We prepare strings for the view to unify "4g" and 4.0.
     let display-nut = none
 
     if manual-nut != none {
-      // Fall A: Manuell (User Inputs direkt nehmen)
-      display-nut = manual-nut.signal
+      // Case A: Manual (take user inputs directly)
+      display-nut = manual-nut.signal 
     } else if total-nut.kcal > 0 {
-      // Fall B: Automatisch (Durch Serves teilen)
+      // Case B: Automatic (divide by serves)
       let s = if serves > 0 { serves } else { 1 }
       display-nut = (
         kcal: str(calc.round(total-nut.kcal / s)),
@@ -162,7 +162,7 @@
   },
 
   draw: (ctx, public, view, body) => {
-    // ... Header Helper (unverändert) ...
+    // ... Header Helper (unchanged) ...
     let render-header() = {
       v(1em)
       text(24pt, weight: "bold", fill: theme.accent, title)
@@ -207,7 +207,7 @@
           radius: 5pt,
           inset: 10pt,
           align(center, text(size: 9pt)[
-            *Nutrition per Serving* \ #v(5pt)
+            *Nutrition per Serving* \ #v(5pt) 
             #grid(
               columns: 4,
               gutter: 5pt,
@@ -236,7 +236,7 @@
     render-header()
     grid(
       columns: (25%, 1fr),
-      column-gutter: 2em,
+      column-gutter: 3em,
       [
         #render-meta()
         #render-nutrition()
